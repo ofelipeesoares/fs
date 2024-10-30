@@ -1,0 +1,44 @@
+Create database faculdade;
+use faculdade;
+
+Create table alunos ( 
+matricula int Primary key auto_increment,
+nome varchar (50) not null,
+data_nasc date,
+endereço TEXT,
+telefone VARCHAR (30),
+email varchar (100),
+curso_id int);
+
+Create table cursos ( 
+curso_id int primary key auto_increment,
+nome varchar (30) not null,
+carga_horaria int);
+
+ALTER TABLE alunos
+    ADD FOREIGN KEY (curso_id) REFERENCES cursos(curso_id);
+    
+Create table professores (
+professor_id int primary key auto_increment,
+nome varchar (30) not null,
+area_atuacao varchar (30),
+titulacao varchar (30));
+
+CREATE TABLE notas (
+    nota_id INT PRIMARY KEY AUTO_INCREMENT,
+    id_aluno INT,
+    curso varchar (100), 
+    valor_nota INT,
+    FOREIGN KEY (id_aluno) REFERENCES alunos(matricula),
+    FOREIGN KEY (curso) REFERENCES cursos(curso_id));
+
+CREATE TABLE turmas (
+    turma_id INT PRIMARY KEY,
+    disciplina_id INT,
+    professor_id INT,
+    semestre INT,
+    ano INT,
+    FOREIGN KEY (professor_id) REFERENCES professores(professor_id),
+    FOREIGN KEY (disciplina_id) REFERENCES cursos(curso_id)
+);
+
